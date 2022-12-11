@@ -1,66 +1,29 @@
-#Author: mulkhiputral@gmail.com
-@Regression
-Feature: Login to OrangeHRM
-  As a Admin want to access OrangeHRM
-   Admin has to login to Web Portal
+Feature: Edit profile feature
 
-  @TC_LOGIN.001 @Positive @SmokeTest
-  Scenario Outline: Login with valid credential
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Succressfully login and user redirect to dashboard page
+Scenario: Successful edit profile with correct information
+Given I am on the edit profile page
+When I enter my correct name, email, phone, and address
+And I click on the save button
+Then I should see a confirmation page
+And I should see a success message
 
-    Examples: 
-      | username | password |
-      | Admin    | admin123 |
+Scenario: Unsuccessful edit profile with empty fields
+Given I am on the edit profile page
+When I enter an empty name, email, phone, and address
+And I click on the save button
+Then I should see an error message
+And I should remain on the edit profile page
 
-  @TC_LOGIN.002 @Negative
-  Scenario Outline: Login with Invalid Username
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Error message should appear with text 'Invalid credentials'
+Scenario: Unsuccessful edit profile with invalid email
+Given I am on the edit profile page
+When I enter a correct name, invalid email, correct phone, and correct address
+And I click on the save button
+Then I should see an error message
+And I should remain on the edit profile page
 
-    Examples: 
-      | username    | password |
-      | NotUsername | admin123 |
-
-  @TC_LOGIN.003 @Negative
-  Scenario Outline: Login with Invalid Password
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Error message should appear with text 'Invalid credentials'
-
-    Examples: 
-      | username | password    |
-      | Admin    | NotPassword |
-
-  @TC_LOGIN.004 @Negative
-  Scenario Outline: Login without fill Username
-    Given User redirected to the login page
-    When Enter only password <password>
-    And Click button Login
-    Then Error message should appear in field username with text 'Required'
-
-    Examples: 
-      | password |
-      | admin123 |
-
-  @TC_LOGIN.005 @Negative
-  Scenario Outline: Login without fill Password
-    Given User redirected to the login page
-    When Enter only username <username>
-    And Click button Login
-    Then Error message should appear in field password with text 'Required'
-
-    Examples: 
-      | username |
-      | Admin    |
-
-  @TC_LOGIN.006 @Negative
-  Scenario: Login without fill username and password
-    Given User redirected to the login page
-    And Click button Login
-    Then Error message should appear with text Required
+Scenario: Unsuccessful edit profile with invalid phone
+Given I am on the edit profile page
+When I enter a correct name, correct email, invalid phone, and correct address
+And I click on the save button
+Then I should see an error message
+And I should remain on the edit profile page
