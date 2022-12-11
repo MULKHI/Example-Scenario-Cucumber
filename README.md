@@ -17,3 +17,19 @@ When [action taken]
 Then [expected result]
 
 ```
+
+### Example:
+```gherkin
+Feature: Login feature
+
+Scenario: Successful login with correct information
+Given I am on the login page
+When I enter my correct username and password
+And I click on the login button
+Then I should be redirected to the dashboard page
+And I should see a success message
+
+```
+
+In this example, the scenario describes the steps for a successful login using correct information. It specifies the initial condition, the actions taken, and the expected results for each step. This scenario can be used to test the login feature of a system or application to ensure that it works as expected.
+
