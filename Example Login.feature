@@ -1,4 +1,3 @@
-#Author: mulkhiputral@gmail.com
 Feature: Login feature
 
 Scenario: Successful login with correct username and password
