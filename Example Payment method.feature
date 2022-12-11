@@ -1,66 +1,49 @@
-#Author: mulkhiputral@gmail.com
-@Regression
-Feature: Login to OrangeHRM
-  As a Admin want to access OrangeHRM
-   Admin has to login to Web Portal
+Feature: Payment method feature
 
-  @TC_LOGIN.001 @Positive @SmokeTest
-  Scenario Outline: Login with valid credential
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Succressfully login and user redirect to dashboard page
+Scenario: Successful payment with credit card
+Given I am on the payment page
+When I select the credit card payment method
+And I enter my correct credit card information
+And I click on the pay button
+Then I should see a confirmation page
+And I should see a success message
 
-    Examples: 
-      | username | password |
-      | Admin    | admin123 |
+Scenario: Successful payment with debit card
+Given I am on the payment page
+When I select the debit card payment method
+And I enter my correct debit card information
+And I click on the pay button
+Then I should see a confirmation page
+And I should see a success message
 
-  @TC_LOGIN.002 @Negative
-  Scenario Outline: Login with Invalid Username
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Error message should appear with text 'Invalid credentials'
+Scenario: Successful payment with bank transfer
+Given I am on the payment page
+When I select the bank transfer payment method
+And I enter my correct bank account information
+And I click on the pay button
+Then I should see a confirmation page
+And I should see a success message
 
-    Examples: 
-      | username    | password |
-      | NotUsername | admin123 |
+Scenario: Successful payment with PayPal
+Given I am on the payment page
+When I select the PayPal payment method
+And I enter my correct PayPal email and password
+And I click on the pay button
+Then I should see a confirmation page
+And I should see a success message
 
-  @TC_LOGIN.003 @Negative
-  Scenario Outline: Login with Invalid Password
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Error message should appear with text 'Invalid credentials'
+Scenario: Successful payment with Google Pay
+Given I am on the payment page
+When I select the Google Pay payment method
+And I enter my correct Google Pay information
+And I click on the pay button
+Then I should see a confirmation page
+And I should see a success message
 
-    Examples: 
-      | username | password    |
-      | Admin    | NotPassword |
-
-  @TC_LOGIN.004 @Negative
-  Scenario Outline: Login without fill Username
-    Given User redirected to the login page
-    When Enter only password <password>
-    And Click button Login
-    Then Error message should appear in field username with text 'Required'
-
-    Examples: 
-      | password |
-      | admin123 |
-
-  @TC_LOGIN.005 @Negative
-  Scenario Outline: Login without fill Password
-    Given User redirected to the login page
-    When Enter only username <username>
-    And Click button Login
-    Then Error message should appear in field password with text 'Required'
-
-    Examples: 
-      | username |
-      | Admin    |
-
-  @TC_LOGIN.006 @Negative
-  Scenario: Login without fill username and password
-    Given User redirected to the login page
-    And Click button Login
-    Then Error message should appear with text Required
+Scenario: Successful payment with Apple Pay
+Given I am on the payment page
+When I select the Apple Pay payment method
+And I enter my correct Apple Pay information
+And I click on the pay button
+Then I should see a confirmation page
+And I should see a success message
