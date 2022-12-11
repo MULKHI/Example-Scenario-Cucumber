@@ -1,66 +1,52 @@
 #Author: mulkhiputral@gmail.com
-@Regression
-Feature: Login to OrangeHRM
-  As a Admin want to access OrangeHRM
-   Admin has to login to Web Portal
+Feature: Register feature
 
-  @TC_LOGIN.001 @Positive @SmokeTest
-  Scenario Outline: Login with valid credential
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Succressfully login and user redirect to dashboard page
+Scenario: Successful registration with correct information
+Given I am on the register page
+When I enter my correct name, email, and password
+And I click on the register button
+Then I should be redirected to the dashboard page
+And I should see a success message
 
-    Examples: 
-      | username | password |
-      | Admin    | admin123 |
+Scenario: Unsuccessful registration with incorrect email format
+Given I am on the register page
+When I enter my name and password
+And I enter an incorrect email format
+And I click on the register button
+Then I should see an error message
+And I should remain on the register page
 
-  @TC_LOGIN.002 @Negative
-  Scenario Outline: Login with Invalid Username
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Error message should appear with text 'Invalid credentials'
+Scenario: Unsuccessful registration with empty fields
+Given I am on the register page
+When I enter an empty name, email, and password
+And I click on the register button
+Then I should see an error message
+And I should remain on the register page
 
-    Examples: 
-      | username    | password |
-      | NotUsername | admin123 |
+Scenario: Unsuccessful registration with existing email
+Given I am on the register page
+When I enter my name and password
+And I enter an existing email
+And I click on the register button
+Then I should see an error message
+And I should remain on the register page
 
-  @TC_LOGIN.003 @Negative
-  Scenario Outline: Login with Invalid Password
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Error message should appear with text 'Invalid credentials'
+Scenario: Registration with email verification
+Given I am on the register page
+When I enter my name, email, and password
+And I click on the register button
+Then I should receive an email verification link
+And I should be able to complete the registration by clicking on the link
 
-    Examples: 
-      | username | password    |
-      | Admin    | NotPassword |
+Scenario: Registration with two-factor authentication
+Given I am on the register page
+When I enter my name, email, and password
+And I click on the register button
+Then I should be redirected to the two-factor authentication page
+And I should be able to complete the registration using SMS or email verification
 
-  @TC_LOGIN.004 @Negative
-  Scenario Outline: Login without fill Username
-    Given User redirected to the login page
-    When Enter only password <password>
-    And Click button Login
-    Then Error message should appear in field username with text 'Required'
-
-    Examples: 
-      | password |
-      | admin123 |
-
-  @TC_LOGIN.005 @Negative
-  Scenario Outline: Login without fill Password
-    Given User redirected to the login page
-    When Enter only username <username>
-    And Click button Login
-    Then Error message should appear in field password with text 'Required'
-
-    Examples: 
-      | username |
-      | Admin    |
-
-  @TC_LOGIN.006 @Negative
-  Scenario: Login without fill username and password
-    Given User redirected to the login page
-    And Click button Login
-    Then Error message should appear with text Required
+Scenario: Registration with single sign-on using Google or Facebook
+Given I am on the register page
+When I click on the "Sign up with Google" or "Sign up with Facebook" button
+Then I should be redirected to the Google or Facebook login page
+And I should be able to complete the registration using my Google or Facebook account
