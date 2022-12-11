@@ -1,4 +1,3 @@
-#Author: mulkhiputral@gmail.com
 Feature: Register feature
 
 Scenario: Successful registration with correct information
