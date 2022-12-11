@@ -1,4 +1,3 @@
-#Author: mulkhiputral@gmail.com
 Feature: Add to cart feature
 
 Scenario: Successful add to cart with correct quantity
