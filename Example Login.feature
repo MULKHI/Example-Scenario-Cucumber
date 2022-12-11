@@ -1,66 +1,65 @@
 #Author: mulkhiputral@gmail.com
-@Regression
-Feature: Login to OrangeHRM
-  As a Admin want to access OrangeHRM
-   Admin has to login to Web Portal
+#Author: mulkhiputral@gmail.com
+Feature: Login feature
 
-  @TC_LOGIN.001 @Positive @SmokeTest
-  Scenario Outline: Login with valid credential
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Succressfully login and user redirect to dashboard page
+Scenario: Successful login with correct username and password
+Given I am on the login page
+When I enter my correct username and password
+And I click on the login button
+Then I should be redirected to the dashboard page
+And I should see a success message
 
-    Examples: 
-      | username | password |
-      | Admin    | admin123 |
+Scenario: Unsuccessful login with incorrect username and password
+Given I am on the login page
+When I enter my incorrect username and password
+And I click on the login button
+Then I should see an error message
+And I should remain on the login page
 
-  @TC_LOGIN.002 @Negative
-  Scenario Outline: Login with Invalid Username
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Error message should appear with text 'Invalid credentials'
+Scenario: Unsuccessful login with empty username and password
+Given I am on the login page
+When I enter an empty username and password
+And I click on the login button
+Then I should see an error message
+And I should remain on the login page
 
-    Examples: 
-      | username    | password |
-      | NotUsername | admin123 |
+Scenario: Unsuccessful login with unregistered username
+Given I am on the login page
+When I enter an unregistered username and password
+And I click on the login button
+Then I should see an error message
+And I should remain on the login page
 
-  @TC_LOGIN.003 @Negative
-  Scenario Outline: Login with Invalid Password
-    Given User redirected to the login page
-    When Enter username <username> and password <password>
-    And Click button Login
-    Then Error message should appear with text 'Invalid credentials'
+Scenario: Forgotten password
+Given I am on the login page
+When I click on the "forgotten password" link
+Then I should be redirected to the password reset page
 
-    Examples: 
-      | username | password    |
-      | Admin    | NotPassword |
+Scenario: Change password after successful login
+Given I am on the dashboard page after a successful login
+When I click on the "change password" link
+Then I should be redirected to the change password page
 
-  @TC_LOGIN.004 @Negative
-  Scenario Outline: Login without fill Username
-    Given User redirected to the login page
-    When Enter only password <password>
-    And Click button Login
-    Then Error message should appear in field username with text 'Required'
+Scenario: Two-factor authentication
+Given I am on the login page
+When I enter my correct username and password
+And I click on the login button
+Then I should be redirected to the two-factor authentication page
+And I should be able to login using SMS or email verification
 
-    Examples: 
-      | password |
-      | admin123 |
+Scenario: Single sign-on using Google or Facebook
+Given I am on the login page
+When I click on the "Login with Google" or "Login with Facebook" button
+Then I should be redirected to the Google or Facebook login page
+And I should be able to login using my Google or Facebook account
 
-  @TC_LOGIN.005 @Negative
-  Scenario Outline: Login without fill Password
-    Given User redirected to the login page
-    When Enter only username <username>
-    And Click button Login
-    Then Error message should appear in field password with text 'Required'
+Scenario: Logout
+Given I am on the dashboard page after a successful login
+When I click on the "logout" button
+Then I should be logged out and redirected to the login page
 
-    Examples: 
-      | username |
-      | Admin    |
-
-  @TC_LOGIN.006 @Negative
-  Scenario: Login without fill username and password
-    Given User redirected to the login page
-    And Click button Login
-    Then Error message should appear with text Required
+Scenario: Session timeout
+Given I am on the dashboard page after a successful login
+When I remain inactive for a certain period of time
+Then I should be automatically logged out
+And I should be redirected to the login page
