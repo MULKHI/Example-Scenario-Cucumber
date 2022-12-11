@@ -7,3 +7,13 @@ Scenarios are commonly used in the development of a system or application to hel
 
 ### Format for Writing Scenarios
 Scenarios are typically written using natural languages such as English or Indonesian, using the following format:
+
+```gherkin
+Feature: [Feature name]
+
+Scenario: [Scenario name]
+Given [initial condition]
+When [action taken]
+Then [expected result]
+
+```
